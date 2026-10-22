@@ -1,1 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f0e8" />
+  <meta name="description" content="Koco creates thoughtful, beautifully produced events for people and brands." />
+  <title>Koco — Events with feeling</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root { --cream:#f5f0e8; --paper:#fffdf8; --ink:#20241f; --muted:#686c63; --green:#405b49; --lime:#d2e87b; --coral:#ed7559; --line:rgba(32,36,31,.16); --serif:'Playfair Display', Georgia, serif; --sans:'DM Sans', Arial, sans-serif; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--cream); font-family:var(--sans); -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    button, input, textarea { font:inherit; }
+    .wrap { width:min(1160px, calc(100% - 48px)); margin:auto; }
+    .topbar { padding:22px 0; border-bottom:1px solid var(--line); }
+    .nav { display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .logo { display:flex; align-items:center; gap:9px; font-weight:700; font-size:32px; letter-spacing:-1px; color:var(--green); }
+    .logo-mark { width:12px; height:12px; background:var(--coral); border-radius:50% 50% 50% 8%; transform:rotate(-45deg); display:inline-block; }
+    .navlinks { display:flex; align-items:center; gap:34px; font-size:13px; color:#454941; }
+    .navlinks a:hover { color:var(--coral); }
+    .nav-cta, .button { display:inline-flex; align-items:center; justify-content:center; gap:10px; background:var(--ink); color:white; padding:14px 19px; border-radius:3px; font-size:13px; font-weight:600; transition:transform .2s, background .2s; }
+    .nav-cta:hover, .button:hover { transform:translateY(-2px); background:var(--green); }
+    .menu-toggle { display:none; background:none; border:0; font-size:24px; color:var(--ink); cursor:pointer; }
+    .hero { display:grid; grid-template-columns:1.02fr .98fr; gap:50px; align-items:center; padding:64px 0 76px; }
+    .eyebrow { color:var(--green); text-transform:uppercase; letter-spacing:2.1px; font-size:10px; font-weight:700; display:flex; gap:10px; align-items:center; }
+    .eyebrow:before { content:''; width:25px; height:1px; background:var(--coral); }
+    h1 { font:500 clamp(50px, 6.8vw, 83px)/.99 var(--serif); letter-spacing:-3.5px; margin:23px 0 22px; max-width:590px; }
+    h1 em { color:var(--coral); font-weight:500; }
+    .hero-copy { color:var(--muted); line-height:1.8; font-size:15px; max-width:440px; margin:0 0 29px; }
+    .hero-actions { display:flex; align-items:center; gap:22px; flex-wrap:wrap; }
+    .text-link { font-size:13px; font-weight:600; border-bottom:1px solid var(--ink); padding:8px 0; }
+    .text-link span { color:var(--coral); margin-left:5px; }
+    .hero-visual { min-height:520px; height:100%; position:relative; }
+    .hero-photo { position:absolute; inset:0 28px 28px 0; background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.12)),url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1400&q=88') center/cover; border-radius:190px 190px 3px 3px; }
+    .photo-note { position:absolute; right:0; bottom:0; background:var(--lime); width:172px; height:172px; padding:26px 20px; border-radius:50%; display:flex; flex-direction:column; justify-content:center; text-align:center; transform:rotate(7deg); }
+    .photo-note strong { font:500 30px/1 var(--serif); }
+    .photo-note span { margin-top:9px; font-size:10px; line-height:1.5; text-transform:uppercase; letter-spacing:1px; }
+    .side-caption { position:absolute; left:-22px; top:48%; transform:rotate(-90deg) translateX(-50%); transform-origin:left top; font-size:9px; letter-spacing:1.8px; text-transform:uppercase; color:var(--muted); }
+    .ticker { overflow:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:17px 0; }
+    .ticker-track { display:flex; justify-content:space-around; align-items:center; gap:34px; white-space:nowrap; font:italic 17px var(--serif); color:var(--green); }
+    .ticker-track b { color:var(--coral); font:normal 15px var(--sans); }
+    section { scroll-margin-top:24px; }
+    .section { padding:100px 0; }
+    .section-heading { display:flex; justify-content:space-between; align-items:end; gap:35px; margin-bottom:40px; }
+    h2 { font:500 clamp(38px, 5vw, 58px)/1.06 var(--serif); letter-spacing:-1.8px; margin:15px 0 0; }
+    .section-intro { max-width:365px; color:var(--muted); line-height:1.75; font-size:14px; margin:0 0 5px; }
+    .services { background:var(--paper); }
+    .service-grid { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); }
+    .service { padding:28px 30px 26px 0; border-bottom:1px solid var(--line); min-height:222px; }
+    .service + .service { border-left:1px solid var(--line); padding-left:28px; }
+    .service-number { font-size:10px; letter-spacing:1.5px; color:var(--coral); font-weight:700; }
+    .service h3 { font:500 27px var(--serif); margin:22px 0 10px; }
+    .service p { color:var(--muted); font-size:13px; line-height:1.7; max-width:290px; margin:0; }
+    .work-grid { display:grid; grid-template-columns:1.15fr .85fr; gap:22px; align-items:start; }
+    .work-card { position:relative; overflow:hidden; min-height:420px; background:#d3c4af; }
+    .work-card.tall { min-height:535px; }
+    .work-card img { width:100%; height:100%; position:absolute; inset:0; object-fit:cover; transition:transform .6s; }
+    .work-card:hover img { transform:scale(1.04); }
+    .work-card[data-celebration-card] { cursor:pointer; }
+    .work-card[data-celebration-card]:focus-visible { outline:3px solid var(--lime); outline-offset:4px; }
+    .work-card[data-celebration-card] .work-label::after { content:'Explore celebration ideas  ↗'; display:block; margin-top:10px; font-size:10px; letter-spacing:.2px; }
+    .work-card[data-guide-category="brand"] .work-label::after { content:'Explore brand event ideas  ↗'; }
+    .celebration-dialog { width:min(680px, calc(100% - 32px)); max-height:min(88vh, 760px); overflow:auto; border:0; padding:0; background:var(--paper); color:var(--ink); box-shadow:0 25px 90px rgba(0,0,0,.32); }
+    .celebration-dialog::backdrop { background:rgba(17,24,19,.68); backdrop-filter:blur(4px); }
+    .dialog-shell { position:relative; padding:42px; }
+    .dialog-close { position:absolute; top:16px; right:18px; width:38px; height:38px; border:1px solid var(--line); border-radius:50%; background:transparent; color:var(--ink); font-size:25px; line-height:1; cursor:pointer; }
+    .dialog-close:hover { background:var(--cream); }
+    .dialog-heading h2 { margin:14px 0 10px; font-size:clamp(34px, 5vw, 48px); }
+    .dialog-heading p { margin:0; max-width:470px; color:var(--muted); font-size:13px; line-height:1.7; }
+    .celebration-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:26px 0 20px; }
+    .celebration-option { display:grid; grid-template-columns:30px 1fr 16px; gap:0 10px; align-items:center; min-height:76px; border:1px solid var(--line); padding:13px; background:transparent; color:var(--ink); text-align:left; cursor:pointer; transition:background .2s, border-color .2s, transform .2s; }
+    .celebration-option:hover { background:var(--cream); border-color:var(--green); transform:translateY(-1px); }
+    .celebration-option.selected { background:#f0f4df; border-color:var(--green); box-shadow:inset 0 0 0 1px var(--green); }
+    .celebration-option.selected .celebration-arrow { font-size:0; }
+    .celebration-option.selected .celebration-arrow::after { content:"✓"; font-size:16px; font-weight:700; }
+    .celebration-option[hidden] { display:none; }
+    .celebration-number { grid-row:1 / span 2; align-self:center; color:var(--coral); font-size:10px; font-weight:700; letter-spacing:1px; }
+    .celebration-copy strong { font:500 18px var(--serif); }
+    .celebration-copy small { display:block; margin-top:4px; color:var(--muted); font-size:10px; }
+    .celebration-arrow { color:var(--green); font-size:15px; }
+    .dialog-bottom { display:flex; justify-content:space-between; align-items:center; gap:15px; border-top:1px solid var(--line); padding-top:17px; }
+    .dialog-bottom p { margin:0; color:var(--muted); font-size:11px; }
+    .dialog-bottom .button { flex:0 0 auto; border:0; cursor:pointer; }
+    .dialog-bottom .button:disabled { opacity:.48; cursor:not-allowed; transform:none; background:var(--ink); }
+    .work-card:after { content:''; position:absolute; inset:45% 0 0; background:linear-gradient(transparent,rgba(10,20,15,.68)); }
+    .work-label { position:absolute; z-index:1; bottom:25px; left:27px; color:white; }
+    .work-label small { text-transform:uppercase; letter-spacing:1.5px; font-size:9px; }
+    .work-label h3 { font:500 29px var(--serif); margin:8px 0 0; }
+    .work-side { display:grid; gap:22px; }
+    .work-card.short { min-height:256px; }
+    .quote { background:var(--green); color:#fffdf8; padding:82px 0; text-align:center; }
+    .quote .eyebrow { justify-content:center; color:var(--lime); }
+    .quote blockquote { font:500 clamp(30px, 4.6vw, 54px)/1.2 var(--serif); max-width:850px; margin:30px auto 22px; letter-spacing:-1px; }
+    .quote cite { font-style:normal; font-size:11px; color:#d8dfd5; letter-spacing:1px; text-transform:uppercase; }
+    .contact { background:var(--lime); }
+    .contact-layout { display:grid; grid-template-columns:1fr .8fr; gap:80px; align-items:center; }
+    .contact h2 { max-width:560px; }
+    .contact .section-intro { color:#49523e; margin:22px 0 28px; }
+    .contact-form { background:var(--paper); padding:30px; box-shadow:0 14px 40px rgba(30,45,25,.08); }
+    .field { margin-bottom:16px; }
+    .field label { display:block; text-transform:uppercase; font-size:9px; font-weight:700; letter-spacing:1.4px; margin-bottom:8px; }
+    .field input, .field textarea, .field select { border:0; border-bottom:1px solid var(--line); padding:10px 2px; width:100%; background:transparent; outline:none; font-size:13px; resize:vertical; color:var(--ink); }
+    .field select { cursor:pointer; }
+    .choice-group { border:0; padding:0; margin:20px 0; }
+    .choice-group legend { display:block; width:100%; padding:12px 14px; border-left:4px solid var(--lime); background:var(--green); color:white; text-transform:uppercase; font-size:9px; font-weight:700; letter-spacing:1.4px; margin-bottom:13px; }
+    .choice-group.exclude-banner legend { border-left-color:var(--coral); background:var(--ink); }
+    .check-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px 12px; }
+    .check-option { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--muted); cursor:pointer; }
+    .check-option input { accent-color:var(--green); width:14px; height:14px; margin:0; flex:0 0 14px; }
+    .field input:focus, .field textarea:focus { border-color:var(--green); }
+    .field textarea { min-height:70px; }
+    .contact-form .button { border:0; cursor:pointer; width:100%; margin-top:3px; }
+    .form-note { color:var(--muted); font-size:10px; line-height:1.5; margin:12px 0 0; text-align:center; }
+    footer { padding:27px 0; background:var(--paper); color:var(--ink); border-top:1px solid var(--line); }
+    .footer-row { display:flex; justify-content:space-between; gap:20px; align-items:center; font-size:11px; color:var(--muted); }
+    .footer-logo { color:var(--green); font-size:25px; }
+    .footer-links { display:flex; gap:20px; }
+    .footer-links a:hover { color:var(--green); }
+    .toast { position:fixed; left:50%; bottom:24px; transform:translate(-50%,20px); background:var(--ink); color:#fff; padding:14px 20px; font-size:13px; opacity:0; pointer-events:none; transition:.25s; z-index:9; }
+    .toast.show { opacity:1; transform:translate(-50%,0); }
+    .guide-launcher { position:fixed; right:24px; bottom:24px; z-index:11; display:flex; align-items:center; gap:11px; border:0; padding:10px 17px 10px 10px; background:var(--green); color:white; box-shadow:0 8px 28px rgba(25,35,25,.22); cursor:pointer; text-align:left; transition:transform .2s, background .2s; }
+    .guide-launcher:hover { transform:translateY(-2px); background:var(--ink); }
+    .guide-avatar { width:38px; height:38px; display:grid; place-items:center; border-radius:50%; background:var(--lime); color:var(--ink); font:600 19px var(--serif); }
+    .guide-launcher-copy strong, .guide-launcher-copy small { display:block; }
+    .guide-launcher-copy strong { font-size:12px; }
+    .guide-launcher-copy small { margin-top:3px; color:#e2e9df; font-size:9px; }
+    .whatsapp-help { position:fixed; left:24px; bottom:24px; z-index:11; display:flex; align-items:center; gap:9px; padding:13px 17px; background:#188d59; color:white; box-shadow:0 8px 28px rgba(25,35,25,.22); font-size:12px; font-weight:700; transition:transform .2s, background .2s; }
+    .whatsapp-help:hover { transform:translateY(-2px); background:#116e45; }
+    .whatsapp-help-icon { display:grid; place-items:center; width:25px; height:25px; border:1.5px solid rgba(255,255,255,.8); border-radius:50%; font-size:15px; }
+    .guide-window { position:fixed; right:24px; bottom:91px; z-index:12; display:none; grid-template-rows:auto 1fr auto; width:min(390px, calc(100vw - 32px)); height:min(590px, calc(100dvh - 115px)); min-height:420px; background:var(--paper); border:1px solid var(--line); box-shadow:0 20px 70px rgba(20,30,22,.28); }
+    .guide-window.open { display:grid; animation:guide-in .18s ease-out; }
+    @keyframes guide-in { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    .guide-header { display:flex; align-items:center; gap:11px; padding:16px 17px; background:var(--green); color:white; }
+    .guide-header .guide-avatar { width:35px; height:35px; flex:0 0 35px; }
+    .guide-header-copy { flex:1; }
+    .guide-header-copy strong, .guide-header-copy small { display:block; }
+    .guide-header-copy strong { font:500 19px var(--serif); }
+    .guide-header-copy small { margin-top:3px; color:#e2e9df; font-size:10px; }
+    .guide-close { width:32px; height:32px; border:1px solid rgba(255,255,255,.35); border-radius:50%; background:transparent; color:white; font-size:21px; line-height:1; cursor:pointer; }
+    .guide-messages { display:flex; flex-direction:column; align-items:flex-start; gap:11px; overflow-y:auto; padding:17px; }
+    .guide-message { max-width:88%; padding:11px 13px; background:var(--cream); color:var(--ink); font-size:12px; line-height:1.65; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .guide-message.user { align-self:flex-end; background:var(--green); color:white; }
+    .guide-message.error { border-left:3px solid var(--coral); }
+    .guide-quick-prompts { display:grid; gap:7px; width:100%; margin-top:3px; }
+    .guide-prompt { padding:9px 11px; border:1px solid var(--line); background:var(--paper); color:var(--green); font-size:11px; text-align:left; cursor:pointer; }
+    .guide-prompt:hover { background:var(--cream); border-color:var(--green); }
+    .guide-composer { border-top:1px solid var(--line); padding:12px; }
+    .guide-composer-row { display:flex; gap:8px; }
+    .guide-input { min-width:0; flex:1; padding:11px 12px; border:1px solid var(--line); background:white; color:var(--ink); font:12px var(--sans); outline:none; }
+    .guide-input:focus { border-color:var(--green); }
+    .guide-send { width:42px; border:0; background:var(--coral); color:white; font-size:18px; cursor:pointer; }
+    .guide-send:disabled { opacity:.55; cursor:wait; }
+    .guide-caption { margin:8px 2px 0; color:var(--muted); font-size:9px; text-align:center; }
+    .guide-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    @media (max-width:800px) {
+      .navlinks { gap:18px; }
+      .hero { gap:28px; }
+      .hero-visual { min-height:440px; }
+      .service-grid { grid-template-columns:1fr 1fr; }
+      .service:nth-child(3) { border-left:0; padding-left:0; }
+      .contact-layout { gap:38px; }
+    }
+    @media (max-width:620px) {
+      .wrap { width:min(100% - 34px, 500px); }
+      .topbar { padding:17px 0; }
+      .menu-toggle { display:block; }
+      .nav-cta { display:none; }
+      .navlinks { display:none; position:absolute; top:64px; left:0; right:0; background:var(--paper); padding:20px 24px; z-index:5; border-bottom:1px solid var(--line); flex-direction:column; align-items:flex-start; gap:18px; }
+      .navlinks.open { display:flex; }
+      .hero { grid-template-columns:1fr; padding:48px 0 55px; gap:30px; }
+      h1 { font-size:59px; letter-spacing:-2.4px; }
+      .hero-copy { font-size:14px; }
+      .hero-visual { min-height:390px; }
+      .hero-photo { inset:0 20px 20px 12px; border-radius:150px 150px 2px 2px; }
+      .photo-note { width:140px; height:140px; padding:18px; }
+      .photo-note strong { font-size:25px; }
+      .side-caption { left:0; font-size:8px; }
+      .ticker-track { justify-content:flex-start; animation:marquee 20s linear infinite; width:max-content; }
+      @keyframes marquee { to { transform:translateX(-35%); } }
+      .section { padding:70px 0; }
+      .section-heading { align-items:flex-start; flex-direction:column; gap:17px; margin-bottom:30px; }
+      .service-grid { grid-template-columns:1fr; }
+      .service, .service + .service, .service:nth-child(3) { border-left:0; padding:24px 0; min-height:auto; }
+      .service h3 { margin-top:12px; }
+      .work-grid { grid-template-columns:1fr; gap:15px; }
+      .work-card, .work-card.tall, .work-card.short { min-height:350px; }
+      .work-side { gap:15px; }
+      .quote { padding:65px 20px; }
+      .contact-layout { grid-template-columns:1fr; gap:25px; }
+      .contact-form { padding:23px; }
+      .dialog-shell { padding:34px 20px 22px; }
+      .celebration-grid { grid-template-columns:1fr; gap:8px; margin-top:20px; }
+      .celebration-option { min-height:66px; }
+      .dialog-bottom { align-items:stretch; flex-direction:column; }
+      .dialog-bottom .button { width:100%; }
+      .guide-launcher { right:16px; bottom:16px; }
+      .guide-window { right:16px; bottom:80px; height:min(590px, calc(100dvh - 100px)); }
+      .whatsapp-help { left:16px; bottom:16px; }
+      .footer-row { flex-direction:column; text-align:center; }
+    }
 
+    /* Circular KOCO brand mark in the site header and AI guide */
+    .logo { gap:12px; }
+    .logo-mark { width:54px; height:54px; flex:0 0 54px; display:grid; place-items:center; background:#173b2b; color:#fff; border-radius:50%; transform:none; font-family:var(--sans); font-size:14px; font-weight:800; letter-spacing:-1px; }
+    .logo-mark::after { content:'koco'; }
+    .logo-word { display:inline-block; }
+    .guide-avatar { width:42px; height:42px; display:grid; place-items:center; border-radius:50%; background:#173b2b; color:#fff; font:800 13px var(--sans); letter-spacing:-.8px; }
+    .guide-avatar::after { content:'koco'; }
+    .guide-avatar { font-size:0; }
+    .guide-header .guide-avatar { width:35px; height:35px; flex:0 0 35px; }
+    @media (max-width:620px) { .logo-mark { width:46px; height:46px; flex-basis:46px; font-size:12px; } }
+
+    /* KOCO welcome intro restored */
+    .koco-welcome { position:fixed; inset:0; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; background:#173b2b; color:#fffdf8; opacity:1; visibility:visible; transition:opacity 1.25s ease, visibility 1.25s ease; }
+    .koco-welcome.dismissed { opacity:0; visibility:hidden; pointer-events:none; }
+    .koco-welcome-mark { width:112px; height:112px; border:1px solid rgba(255,253,248,.72); border-radius:50%; display:grid; place-items:center; box-shadow:0 0 0 8px rgba(255,253,248,.05); animation:koco-mark-in 1.1s cubic-bezier(.2,.8,.2,1) both; }
+    .koco-welcome-word { font-family:var(--sans); font-size:36px; line-height:1; font-weight:700; letter-spacing:-2px; }
+    .koco-welcome-tagline { margin:0; font-size:10px; font-weight:500; letter-spacing:3.2px; text-transform:uppercase; color:#dbe6d8; opacity:0; animation:koco-tagline-in .8s ease .55s forwards; }
+    .koco-welcome-line { width:34px; height:1px; background:#d2e87b; transform:scaleX(0); animation:koco-line-in .7s ease .35s forwards; }
+    @keyframes koco-mark-in { from { opacity:0; transform:scale(.86); } to { opacity:1; transform:scale(1); } }
+    @keyframes koco-tagline-in { to { opacity:1; } }
+    @keyframes koco-line-in { to { transform:scaleX(1); } }
+    @media (prefers-reduced-motion: reduce) { .koco-welcome, .koco-welcome * { animation:none !important; transition:none !important; } .koco-welcome-tagline { opacity:1; } .koco-welcome-line { transform:scaleX(1); } }
+
+  </style>
+</head>
+<body>
+  <div class="koco-welcome" id="koco-welcome" role="status" aria-label="Welcome to Koco">
+    <div class="koco-welcome-mark"><span class="koco-welcome-word">koco</span></div>
+    <span class="koco-welcome-line" aria-hidden="true"></span>
+    <p class="koco-welcome-tagline">Events with feeling</p>
+  </div>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="logo" href="#home" aria-label="Koco home"><span class="logo-mark" aria-hidden="true"></span><span class="logo-word">koco</span></a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      <nav class="navlinks" aria-label="Main navigation">
+        <a href="#about">Our approach</a><a href="#services">What we do</a><a href="#work">Selected work</a>
+      </nav>
+      <a class="nav-cta" href="#contact">Let’s make a moment <span>↗</span></a>
+    </div>
+  </header>
+  <main>
+    <section class="wrap hero" id="home">
+      <div>
+        <div class="eyebrow">A little more feeling, please</div>
+        <h1>Good things<br />happen when<br />we <em>gather.</em></h1>
+        <p class="hero-copy">Koco is an independent event studio making thoughtful gatherings feel effortless. We dream up the details, bring the right people together, and make the whole thing feel like you.</p>
+        <div class="hero-actions"><a class="button" href="#contact">Plan something good <span>↗</span></a><a class="text-link" href="#work">See what we make <span>↓</span></a></div>
+      </div>
+      <div class="hero-visual" aria-label="A warmly lit outdoor celebration">
+        <div class="hero-photo"></div><div class="side-caption">Good company · Good energy · Koco</div>
+        <div class="photo-note"><strong>Made to<br />mean more.</strong><span>Gather well<br />with Koco</span></div>
+      </div>
+    </section>
+    <div class="ticker" aria-hidden="true"><div class="wrap ticker-track"><span>Small moments, big memories</span><b>✳</b><span>Good people, gathered</span><b>✳</b><span>Made with a little magic</span><b>✳</b><span>Small moments, big memories</span><b>✳</b></div></div>
+    <section class="services section" id="services">
+      <div class="wrap">
+        <div class="section-heading"><div><div class="eyebrow">Thoughtfully from start to finish</div><h2>We make the<br />whole thing happen.</h2></div><p class="section-intro">From the first “what if?” to the last song, we take care of the details that turn a gathering into a feeling.</p></div>
+        <div class="service-grid">
+          <article class="service"><div class="service-number">01 / THE BIG IDEA</div><h3>Creative direction</h3><p>A clear point of view, a thoughtful theme, and the details that make your event unmistakably yours.</p></article>
+          <article class="service"><div class="service-number">02 / ALL THE PIECES</div><h3>Planning & production</h3><p>Budgets, timelines, vendors, and all the behind-the-scenes care that lets you enjoy the day.</p></article>
+          <article class="service"><div class="service-number">03 / THE MOMENT</div><h3>On-the-day magic</h3><p>A calm, capable crew making sure every cue lands and every guest feels looked after.</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="work">
+      <div class="wrap">
+        <div class="section-heading"><div><div class="eyebrow">A few good days</div><h2>Gathered with care.</h2></div><p class="section-intro">Every event starts with people. Here are a few ways we’ve brought them together.</p></div>
+        <div class="work-grid">
+          <article class="work-card tall" data-celebration-card tabindex="0" role="button" aria-haspopup="dialog" aria-controls="celebration-dialog" aria-label="Explore celebrations for Under the open sky"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1300&q=85" alt="Outdoor anniversary dinner beneath warm lights" loading="lazy" /><div class="work-label"><small>Anniversaries · Garden party</small><h3>Under the open sky</h3></div></article>
+          <div class="work-side">
+            <article class="work-card short" data-celebration-card tabindex="0" role="button" aria-haspopup="dialog" aria-controls="celebration-dialog" aria-label="Explore celebrations for The long-table club"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1000&q=85" alt="Guests celebrating around a beautifully set dinner table" loading="lazy" /><div class="work-label"><small>Private dinners · 40 guests</small><h3>The long-table club</h3></div></article>
+            <article class="work-card short" data-celebration-card data-guide-category="brand" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="celebration-dialog" aria-label="Explore brand events for A good kind of buzz"><img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1000&q=85" alt="An intimate event space filled with flowers and candlelight" loading="lazy" /><div class="work-label"><small>Brand moments · Launch night</small><h3>A good kind of buzz</h3></div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="quote" id="about"><div class="wrap"><div class="eyebrow">The Koco feeling</div><blockquote>“The best events don’t just look beautiful. They make you feel like you belong there.”</blockquote><cite>Our little north star</cite></div></section>
+    <section class="contact section" id="contact">
+      <div class="wrap contact-layout">
+        <div><div class="eyebrow">Your turn</div><h2>Have a good feeling about this?</h2><p class="section-intro">Tell us what you’re dreaming up. We’ll bring the coffee, ask the right questions, and start imagining together.</p><a class="text-link" href="#home">Back to the top <span>↑</span></a></div>
+        <form class="contact-form" id="contact-form">
+          <div class="field"><label for="name">Your name</label><input id="name" name="name" placeholder="What should we call you?" required /></div>
+          <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" placeholder="you@example.com" required /></div>
+          <div class="field"><label for="event-type">Select your program</label><select id="event-type" name="eventType" required><option value="" disabled selected>Choose an event type</option><option>Anniversary</option><option>Birthday</option><option>Baptism</option><option>Engagement party</option><option>Baby shower</option><option>Graduation</option><option>Family reunion</option><option>Holiday party</option><option>Corporate event</option><option>Conference or workshop</option><option>Launch night</option><option>Product launch</option><option>Brand activation</option><option>Press preview</option><option>Influencer event</option><option>Pop-up experience</option><option>Client appreciation event</option><option>Team celebration</option><option>Other brand moment</option><option>Concert or live show</option><option>Private dinner</option><option>Festival or community event</option><option>Other</option></select></div>
+          <div class="field"><label for="event-date">Event date</label><input id="event-date" name="eventDate" type="date" /></div>
+          <div class="field"><label for="event-time">Start time</label><input id="event-time" name="eventTime" type="time" /></div>
+          <div class="field"><label for="event-place">Place or venue</label><input id="event-place" name="eventPlace" placeholder="Venue, city, or still deciding" /></div>
+          <fieldset class="choice-group"><legend>What style do you have in mind?</legend><div class="check-grid">
+            <label class="check-option"><input type="checkbox" name="style[]" value="Traditional"> Traditional</label>
+            <label class="check-option"><input type="checkbox" name="style[]" value="Modern"> Modern</label>
+            <label class="check-option"><input type="checkbox" name="style[]" value="Elegant"> Elegant</label>
+            <label class="check-option"><input type="checkbox" name="style[]" value="Minimal"> Minimal</label>
+            <label class="check-option"><input type="checkbox" name="style[]" value="Colorful and playful"> Colorful &amp; playful</label>
+            <label class="check-option"><input type="checkbox" name="style[]" value="Cultural"> Cultural</label>
+            <label class="check-option"><input type="checkbox" name="style[]" value="Relaxed and casual"> Relaxed &amp; casual</label>
+            <label class="check-option"><input type="checkbox" name="style[]" value="Not sure yet"> Not sure yet</label>
+          </div></fieldset>
+          <fieldset class="choice-group include-banner"><legend>What would you like included?</legend><div class="check-grid">
+            <label class="check-option"><input type="checkbox" name="want[]" value="Speakers or performers"> Speakers or performers</label>
+            <label class="check-option"><input type="checkbox" name="want[]" value="Food and drinks"> Food &amp; drinks</label>
+            <label class="check-option"><input type="checkbox" name="want[]" value="Anchor or host"> Anchor / host</label>
+            <label class="check-option"><input type="checkbox" name="want[]" value="Entry or grand entrance"> Entry / grand entrance</label>
+            <label class="check-option"><input type="checkbox" name="want[]" value="Microphones and sound"> Microphones &amp; sound</label>
+            <label class="check-option"><input type="checkbox" name="want[]" value="Music or DJ"> Music / DJ</label>
+            <label class="check-option"><input type="checkbox" name="want[]" value="Games and challenges"> Games &amp; challenges</label>
+            <label class="check-option"><input type="checkbox" name="want[]" value="Stage and lighting"> Stage &amp; lighting</label>
+            <label class="check-option"><input type="checkbox" name="want[]" value="Photography or video"> Photography / video</label>
+            <label class="check-option"><input type="checkbox" name="want[]" value="Decor and flowers"> Decor &amp; flowers</label>
+            <label class="check-option"><input type="checkbox" name="want[]" value="Other"> Something else</label>
+          </div></fieldset>
+          <fieldset class="choice-group exclude-banner"><legend>What would you prefer we leave out?</legend><div class="check-grid">
+            <label class="check-option"><input type="checkbox" name="avoid[]" value="Speakers or performers"> Speakers or performers</label>
+            <label class="check-option"><input type="checkbox" name="avoid[]" value="Food and drinks"> Food &amp; drinks</label>
+            <label class="check-option"><input type="checkbox" name="avoid[]" value="Anchor or host"> Anchor / host</label>
+            <label class="check-option"><input type="checkbox" name="avoid[]" value="Entry or grand entrance"> Entry / grand entrance</label>
+            <label class="check-option"><input type="checkbox" name="avoid[]" value="Microphones and sound"> Microphones &amp; sound</label>
+            <label class="check-option"><input type="checkbox" name="avoid[]" value="Music or DJ"> Music / DJ</label>
+            <label class="check-option"><input type="checkbox" name="avoid[]" value="Games and challenges"> Games &amp; challenges</label>
+            <label class="check-option"><input type="checkbox" name="avoid[]" value="Stage and lighting"> Stage &amp; lighting</label>
+            <label class="check-option"><input type="checkbox" name="avoid[]" value="Photography or video"> Photography / video</label>
+            <label class="check-option"><input type="checkbox" name="avoid[]" value="Decor and flowers"> Decor &amp; flowers</label>
+            <label class="check-option"><input type="checkbox" name="avoid[]" value="Other"> Something else</label>
+          </div></fieldset>
+          <div class="field"><label for="event">Anything else we should know?</label><textarea id="event" name="event" placeholder="Share any other wishes or details..." required></textarea></div>
+          <button class="button" type="submit">Send a little hello <span>↗</span></button>
+          <p class="form-note">Submit to open WhatsApp with your event details ready to send.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <dialog class="celebration-dialog" id="celebration-dialog" aria-labelledby="celebration-title" aria-describedby="celebration-description">
+    <div class="dialog-shell">
+      <button class="dialog-close" type="button" aria-label="Close celebration options">×</button>
+      <div class="dialog-heading"><div class="eyebrow" id="dialog-eyebrow">A good reason to gather</div><h2 id="celebration-title">What are we celebrating?</h2><p id="celebration-description">Choose a kind of party and we’ll help make it feel like yours.</p></div>
+      <div class="celebration-grid" id="celebration-grid" role="group" aria-label="Celebration types">
+        <button class="celebration-option" type="button" data-event-category="celebration" data-event-type="Anniversary" aria-pressed="false"><span class="celebration-number">01</span><span class="celebration-copy"><strong>Anniversary</strong><small>Celebrate your story</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-event-category="celebration" data-event-type="Birthday" aria-pressed="false"><span class="celebration-number">02</span><span class="celebration-copy"><strong>Birthday</strong><small>One more candle, one more memory</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-event-category="celebration" data-event-type="Family gathering" aria-pressed="false"><span class="celebration-number">03</span><span class="celebration-copy"><strong>Family gathering</strong><small>Bring everyone together</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-event-category="celebration" data-event-type="Baby shower" aria-pressed="false"><span class="celebration-number">04</span><span class="celebration-copy"><strong>Baby shower</strong><small>Welcome a little new love</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-event-category="celebration" data-event-type="Wedding" aria-pressed="false"><span class="celebration-number">05</span><span class="celebration-copy"><strong>Wedding</strong><small>A day to remember</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-event-category="celebration" data-event-type="Engagement" aria-pressed="false"><span class="celebration-number">06</span><span class="celebration-copy"><strong>Engagement</strong><small>Toast to what comes next</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-event-category="celebration" data-event-type="Housewarming" aria-pressed="false"><span class="celebration-number">07</span><span class="celebration-copy"><strong>Housewarming</strong><small>Make a new place feel like home</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-event-category="celebration" data-event-type="Other celebration" aria-pressed="false"><span class="celebration-number">08</span><span class="celebration-copy"><strong>Other celebration</strong><small>Tell us your idea</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-event-category="celebration" data-event-type="Graduation" aria-pressed="false"><span class="celebration-number">09</span><span class="celebration-copy"><strong>Graduation</strong><small>Celebrate a milestone</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-event-category="celebration" data-event-type="Baptism" aria-pressed="false"><span class="celebration-number">10</span><span class="celebration-copy"><strong>Baptism</strong><small>A special day with loved ones</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-event-category="brand" data-event-type="Launch night" hidden><span class="celebration-number">01</span><span class="celebration-copy"><strong>Launch night</strong><small>Celebrate a new idea or product</small></span><span class="celebration-arrow">↗</span></button>
+        <button class="celebration-option" type="button" data-event-category="brand" data-event-type="Product launch" hidden><span class="celebration-number">02</span><span class="celebration-copy"><strong>Product launch</strong><small>Introduce something new</small></span><span class="celebration-arrow">↗</span></button>
+        <button class="celebration-option" type="button" data-event-category="brand" data-event-type="Brand activation" hidden><span class="celebration-number">03</span><span class="celebration-copy"><strong>Brand activation</strong><small>Turn your story into an experience</small></span><span class="celebration-arrow">↗</span></button>
+        <button class="celebration-option" type="button" data-event-category="brand" data-event-type="Press preview" hidden><span class="celebration-number">04</span><span class="celebration-copy"><strong>Press preview</strong><small>Give your news a first look</small></span><span class="celebration-arrow">↗</span></button>
+        <button class="celebration-option" type="button" data-event-category="brand" data-event-type="Influencer event" hidden><span class="celebration-number">05</span><span class="celebration-copy"><strong>Influencer event</strong><small>Gather your creative community</small></span><span class="celebration-arrow">↗</span></button>
+        <button class="celebration-option" type="button" data-event-category="brand" data-event-type="Pop-up experience" hidden><span class="celebration-number">06</span><span class="celebration-copy"><strong>Pop-up experience</strong><small>Meet your audience in person</small></span><span class="celebration-arrow">↗</span></button>
+        <button class="celebration-option" type="button" data-event-category="brand" data-event-type="Conference or workshop" hidden><span class="celebration-number">07</span><span class="celebration-copy"><strong>Conference or workshop</strong><small>Bring people and ideas together</small></span><span class="celebration-arrow">↗</span></button>
+        <button class="celebration-option" type="button" data-event-category="brand" data-event-type="Client appreciation event" hidden><span class="celebration-number">08</span><span class="celebration-copy"><strong>Client appreciation</strong><small>Celebrate your community</small></span><span class="celebration-arrow">↗</span></button>
+        <button class="celebration-option" type="button" data-event-category="brand" data-event-type="Team celebration" hidden><span class="celebration-number">09</span><span class="celebration-copy"><strong>Team celebration</strong><small>Make a moment for your people</small></span><span class="celebration-arrow">↗</span></button>
+        <button class="celebration-option" type="button" data-event-category="brand" data-event-type="Other brand moment" hidden><span class="celebration-number">10</span><span class="celebration-copy"><strong>Another brand moment</strong><small>Tell us what you have in mind</small></span><span class="celebration-arrow">↗</span></button>
+      </div>
+      <div class="dialog-bottom"><p id="celebration-selection" aria-live="polite">Choose a box to start planning.</p><button class="button" id="plan-celebration" type="button" disabled>Plan this celebration <span>↗</span></button></div>
+    </div>
+  </dialog>
+  <dialog class="celebration-dialog" id="brand-dialog" aria-labelledby="brand-title" aria-describedby="brand-description">
+    <div class="dialog-shell">
+      <button class="dialog-close" id="brand-dialog-close" type="button" aria-label="Close brand event options">×</button>
+      <div class="dialog-heading"><div class="eyebrow">For brands &amp; teams</div><h2 id="brand-title">What are we bringing to life?</h2><p id="brand-description">Choose one or more brand events and we’ll help make them memorable for your audience.</p></div>
+      <div class="celebration-grid" id="brand-grid" role="group" aria-label="Brand event types">
+        <button class="celebration-option" type="button" data-brand-type="Launch night" aria-pressed="false"><span class="celebration-number">01</span><span class="celebration-copy"><strong>Launch night</strong><small>Celebrate a new idea</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-brand-type="Brand promotion" aria-pressed="false"><span class="celebration-number">02</span><span class="celebration-copy"><strong>Brand promotion</strong><small>Bring your brand to life</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-brand-type="Product launch" aria-pressed="false"><span class="celebration-number">03</span><span class="celebration-copy"><strong>Product launch</strong><small>Introduce something new</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-brand-type="Corporate event" aria-pressed="false"><span class="celebration-number">04</span><span class="celebration-copy"><strong>Corporate event</strong><small>Gather your team or partners</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-brand-type="Company anniversary" aria-pressed="false"><span class="celebration-number">05</span><span class="celebration-copy"><strong>Company anniversary</strong><small>Celebrate how far you’ve come</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-brand-type="Networking event" aria-pressed="false"><span class="celebration-number">06</span><span class="celebration-copy"><strong>Networking event</strong><small>Make meaningful connections</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-brand-type="Press event" aria-pressed="false"><span class="celebration-number">07</span><span class="celebration-copy"><strong>Press event</strong><small>Share your story with the media</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-brand-type="Store opening" aria-pressed="false"><span class="celebration-number">08</span><span class="celebration-copy"><strong>Store opening</strong><small>Open your doors with a moment</small></span><span class="celebration-arrow">＋</span></button>
+        <button class="celebration-option" type="button" data-brand-type="Other brand event" aria-pressed="false"><span class="celebration-number">09</span><span class="celebration-copy"><strong>Other brand event</strong><small>Tell us what you have in mind</small></span><span class="celebration-arrow">＋</span></button>
+      </div>
+      <div class="dialog-bottom"><p id="brand-selection" aria-live="polite">Choose one or more brand events.</p><button class="button" id="plan-brand-event" type="button" disabled>Plan this brand event <span>↗</span></button></div>
+    </div>
+  </dialog>
+  <footer><div class="wrap footer-row"><a class="logo footer-logo" href="#home"><span class="logo-mark" aria-hidden="true"></span><span class="logo-word">koco</span></a><span>Gather well. Make it matter. © <span id="year"></span> Koco</span><div class="footer-links"><a href="#services">Services</a><a href="#work">Our work</a><a href="#contact">Say hello</a></div></div></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite">Thanks for the hello! Connect a form service to receive messages.</div>
+  <button class="guide-launcher" id="guide-toggle" type="button" aria-expanded="false" aria-controls="guide-window">
+    <span class="guide-avatar" aria-hidden="true"></span><span class="guide-launcher-copy"><strong>Ask Koco Guide</strong><small>Your AI event planning helper</small></span><span aria-hidden="true">↗</span>
+  </button>
+  <a class="whatsapp-help" href="https://wa.me/919400947103?text=Hello%20Koco%2C%20I%20need%20help%20planning%20an%20event." target="_blank" rel="noopener noreferrer" aria-label="Get help from Koco on WhatsApp">
+    <span class="whatsapp-help-icon" aria-hidden="true">✆</span><span>Need help?</span>
+  </a>
+  <section class="guide-window" id="guide-window" aria-label="Koco AI event guide" aria-hidden="true">
+    <header class="guide-header"><span class="guide-avatar" aria-hidden="true"></span><span class="guide-header-copy"><strong>Koco Guide</strong><small>Here to help you plan a good day</small></span><button class="guide-close" id="guide-close" type="button" aria-label="Close Koco Guide">×</button></header>
+    <div class="guide-messages" id="guide-messages" aria-live="polite" aria-relevant="additions">
+      <div class="guide-message">Hi! I’m Koco’s AI guide. Tell me what you’re celebrating, and I can help with ideas, guest lists, timing, and what to plan next.</div>
+      <div class="guide-quick-prompts" id="guide-quick-prompts">
+        <button class="guide-prompt" type="button">Help me plan an anniversary</button>
+        <button class="guide-prompt" type="button">I’m planning a birthday party</button>
+        <button class="guide-prompt" type="button">What should I decide first?</button>
+      </div>
+    </div>
+    <form class="guide-composer" id="guide-form">
+      <label class="guide-sr-only" for="guide-input">Ask Koco Guide</label>
+      <div class="guide-composer-row"><input class="guide-input" id="guide-input" name="message" maxlength="1200" placeholder="Tell me what you’re planning..." autocomplete="off" required /><button class="guide-send" id="guide-send" type="submit" aria-label="Send message">↑</button></div>
+      <p class="guide-caption">AI ideas for your event · Koco handles bookings directly</p>
+    </form>
+  </section>
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.navlinks');
+    menuButton.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+      menuButton.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      menuButton.textContent = isOpen ? '×' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'Open menu');
+      menuButton.textContent = '☰';
+    }));
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('contact-form').addEventListener('submit', event => {
+      event.preventDefault();
+      if (!event.currentTarget.reportValidity()) return;
+      const form = event.currentTarget;
+      const formData = new FormData(form);
+      const styles = [...form.querySelectorAll('input[name="style[]"]:checked')].map(input => input.value);
+      const included = [...form.querySelectorAll('input[name="want[]"]:checked')].map(input => input.value);
+      const excluded = [...form.querySelectorAll('input[name="avoid[]"]:checked')].map(input => input.value);
+      const message = [
+        'Hello Koco! I would like to plan an event.',
+        `Name: ${formData.get('name')}`,
+        `Email: ${formData.get('email')}`,
+        `Program: ${formData.get('eventType')}`,
+        `Date: ${formData.get('eventDate') || 'Not decided yet'}`,
+        `Time: ${formData.get('eventTime') || 'Not decided yet'}`,
+        `Place: ${formData.get('eventPlace') || 'Not decided yet'}`,
+        styles.length ? `Style: ${styles.join(', ')}` : '',
+        included.length ? `Would like included: ${included.join(', ')}` : '',
+        excluded.length ? `Prefer to leave out: ${excluded.join(', ')}` : '',
+        `Details: ${formData.get('event')}`
+      ].filter(Boolean).join('\n');
+      const whatsappUrl = `https://wa.me/919400947103?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    });
+    const celebrationDialog = document.getElementById('celebration-dialog');
+    const celebrationCards = [...document.querySelectorAll('[data-celebration-card]')];
+    const celebrationOptions = [...document.querySelectorAll('.celebration-option')];
+    const celebrationSelection = document.getElementById('celebration-selection');
+    const planCelebrationButton = document.getElementById('plan-celebration');
+    const eventTypeField = document.getElementById('event-type');
+    const dialogEyebrow = document.getElementById('dialog-eyebrow');
+    const dialogTitle = document.getElementById('celebration-title');
+    const dialogDescription = document.getElementById('celebration-description');
+    const dialogGrid = document.getElementById('celebration-grid');
+    let selectedCelebrations = [];
+
+    function openCelebrationDialog(card) {
+      const isBrandEvent = card.dataset.guideCategory === 'brand';
+      const category = isBrandEvent ? 'brand' : 'celebration';
+      selectedCelebrations = [];
+      celebrationOptions.forEach(option => {
+        option.hidden = option.dataset.eventCategory !== category;
+        option.classList.remove('selected');
+        option.setAttribute('aria-pressed', 'false');
+      });
+      dialogEyebrow.textContent = isBrandEvent ? 'For brands & teams' : 'A good reason to gather';
+      dialogTitle.textContent = isBrandEvent ? 'What are we bringing to life?' : 'What are we celebrating?';
+      dialogDescription.textContent = isBrandEvent
+        ? 'Choose a brand moment and we’ll help make it memorable for your audience.'
+        : 'Choose a kind of party and we’ll help make it feel like yours.';
+      dialogGrid.setAttribute('aria-label', isBrandEvent ? 'Brand event types' : 'Celebration types');
+      celebrationSelection.textContent = isBrandEvent ? 'Choose one or more brand moments.' : 'Choose one or more celebrations.';
+      planCelebrationButton.disabled = true;
+      celebrationDialog.showModal();
+    }
+
+    const brandDialog = document.getElementById('brand-dialog');
+    const brandOptions = [...document.querySelectorAll('[data-brand-type]')];
+    const brandSelection = document.getElementById('brand-selection');
+    const planBrandButton = document.getElementById('plan-brand-event');
+    let selectedBrandEvents = [];
+
+    function openBrandDialog() {
+      selectedBrandEvents = [];
+      brandOptions.forEach(option => {
+        option.classList.remove('selected');
+        option.setAttribute('aria-pressed', 'false');
+      });
+      brandSelection.textContent = 'Choose one or more brand events.';
+      planBrandButton.disabled = true;
+      brandDialog.showModal();
+    }
+
+    celebrationCards.forEach(card => {
+      const openCardDialog = () => card.dataset.guideCategory === 'brand' ? openBrandDialog() : openCelebrationDialog(card);
+      card.addEventListener('click', openCardDialog);
+      card.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openCardDialog();
+        }
+      });
+    });
+
+    brandOptions.forEach(option => option.addEventListener('click', () => {
+      const value = option.dataset.brandType;
+      selectedBrandEvents = selectedBrandEvents.includes(value)
+        ? selectedBrandEvents.filter(item => item !== value)
+        : [...selectedBrandEvents, value];
+      const selected = selectedBrandEvents.includes(value);
+      option.classList.toggle('selected', selected);
+      option.setAttribute('aria-pressed', String(selected));
+      brandSelection.textContent = selectedBrandEvents.length
+        ? `${selectedBrandEvents.length} selected: ${selectedBrandEvents.join(', ')}`
+        : 'Choose one or more brand events.';
+      planBrandButton.disabled = selectedBrandEvents.length === 0;
+    }));
+
+    document.getElementById('brand-dialog-close').addEventListener('click', () => brandDialog.close());
+    brandDialog.addEventListener('click', event => {
+      if (event.target === brandDialog) brandDialog.close();
+    });
+    planBrandButton.addEventListener('click', () => {
+      if (!selectedBrandEvents.length) return;
+      const combined = selectedBrandEvents.join(', ');
+      let option = [...eventTypeField.options].find(item => item.value === combined);
+      if (!option) {
+        option = document.createElement('option');
+        option.value = combined;
+        option.textContent = combined;
+        eventTypeField.appendChild(option);
+      }
+      eventTypeField.value = combined;
+      brandDialog.close();
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+      window.setTimeout(() => eventTypeField.focus({ preventScroll: true }), 450);
+    });
+
+    celebrationOptions.forEach(option => option.addEventListener('click', () => {
+      const value = option.dataset.eventType;
+      if (selectedCelebrations.includes(value)) {
+        selectedCelebrations = selectedCelebrations.filter(item => item !== value);
+      } else {
+        selectedCelebrations.push(value);
+      }
+      option.classList.toggle('selected', selectedCelebrations.includes(value));
+      option.setAttribute('aria-pressed', String(selectedCelebrations.includes(value)));
+      celebrationSelection.textContent = selectedCelebrations.length
+        ? `${selectedCelebrations.length} selected: ${selectedCelebrations.join(', ')}`
+        : 'Choose one or more celebrations.';
+      planCelebrationButton.disabled = selectedCelebrations.length === 0;
+    }));
+
+    document.querySelector('.dialog-close').addEventListener('click', () => celebrationDialog.close());
+    celebrationDialog.addEventListener('click', event => {
+      if (event.target === celebrationDialog) celebrationDialog.close();
+    });
+    planCelebrationButton.addEventListener('click', () => {
+      if (!selectedCelebrations.length) return;
+      const combined = selectedCelebrations.join(', ');
+      let option = [...eventTypeField.options].find(item => item.value === combined);
+      if (!option) {
+        option = document.createElement('option');
+        option.value = combined;
+        option.textContent = combined;
+        eventTypeField.appendChild(option);
+      }
+      eventTypeField.value = combined;
+      celebrationDialog.close();
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+      window.setTimeout(() => eventTypeField.focus({ preventScroll: true }), 450);
+    });
+    const guideToggle = document.getElementById('guide-toggle');
+    const guideWindow = document.getElementById('guide-window');
+    const guideClose = document.getElementById('guide-close');
+    const guideForm = document.getElementById('guide-form');
+    const guideInput = document.getElementById('guide-input');
+    const guideSend = document.getElementById('guide-send');
+    const guideMessages = document.getElementById('guide-messages');
+    const guideQuickPrompts = document.getElementById('guide-quick-prompts');
+    const guideHistory = [];
+    let guideBusy = false;
+
+    function setGuideOpen(isOpen) {
+      guideWindow.classList.toggle('open', isOpen);
+      guideWindow.setAttribute('aria-hidden', String(!isOpen));
+      guideToggle.setAttribute('aria-expanded', String(isOpen));
+      if (isOpen) guideInput.focus();
+      else guideToggle.focus();
+    }
+
+    function addGuideMessage(role, text, extraClass = '') {
+      const message = document.createElement('div');
+      message.className = `guide-message ${role}${extraClass ? ` ${extraClass}` : ''}`;
+      message.textContent = text;
+      guideMessages.appendChild(message);
+      guideMessages.scrollTop = guideMessages.scrollHeight;
+      return message;
+    }
+
+    async function sendGuideMessage(text) {
+      const cleanText = text.trim();
+      if (!cleanText || guideBusy) return;
+      addGuideMessage('user', cleanText);
+      guideHistory.push({ role: 'user', content: cleanText });
+      guideInput.value = '';
+      guideQuickPrompts.hidden = true;
+      guideBusy = true;
+      guideSend.disabled = true;
+      const thinkingMessage = addGuideMessage('assistant', 'Thinking…');
+      try {
+        const response = await fetch('/api/guide', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: guideHistory.slice(-12) })
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.error || 'The guide is unavailable right now.');
+        if (!data.answer) throw new Error('The guide couldn’t make a reply just now. Please try again.');
+        thinkingMessage.remove();
+        addGuideMessage('assistant', data.answer);
+        guideHistory.push({ role: 'assistant', content: data.answer });
+      } catch (error) {
+        thinkingMessage.remove();
+        const helpText = window.location.protocol === 'file:'
+          ? 'The AI guide needs the Koco website server to be running. Start the site server, then try again.'
+          : (error.message || 'I couldn’t reach the guide just now. Please try again, or use the contact form.');
+        addGuideMessage('assistant', helpText, 'error');
+      } finally {
+        guideBusy = false;
+        guideSend.disabled = false;
+        guideInput.focus();
+      }
+    }
+
+    guideToggle.addEventListener('click', () => setGuideOpen(!guideWindow.classList.contains('open')));
+    guideClose.addEventListener('click', () => setGuideOpen(false));
+    guideForm.addEventListener('submit', event => {
+      event.preventDefault();
+      sendGuideMessage(guideInput.value);
+    });
+    guideQuickPrompts.querySelectorAll('.guide-prompt').forEach(button => {
+      button.addEventListener('click', () => sendGuideMessage(button.textContent));
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && guideWindow.classList.contains('open')) setGuideOpen(false);
+    });
+  </script>
+
+
+
+
+  <script>
+    // Show the welcome logo briefly, then fade into the main KOCO website.
+    window.addEventListener('DOMContentLoaded', () => {
+      const welcome = document.getElementById('koco-welcome');
+      if (welcome) window.setTimeout(() => welcome.classList.add('dismissed'), 2400);
+    });
+  </script>
+</body>
+</html>
